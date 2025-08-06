@@ -44,9 +44,9 @@ Ajustes($UsersAdmitidos){
     
 [void]TratarUser($posto, $name, $User){
     $this.AjusteLogin($name)
-    $UserExistente = Get-ADUser -Filter {extensionAttribute3 -eq $this.CPF}
+    $UserExistente = Get-ADUser -Filter {extensionAttributeCPF -eq $this.CPF}
     if(!$this.nickname -and !$UserExistente){
-    EnviarEmail $User "manual" "eduardo.mendes@dufrio.com.br"
+    EnviarEmail $User "manual" "email"
     }
     
     $this.password = $this.NewPassword(9,5,1,1)
@@ -144,17 +144,7 @@ Ajustes($UsersAdmitidos){
     [String]$descricao,$sigla,$siglaOUFilial,$pagerSigla,$siglaMembers =""
     switch($emp){
         
-        1{
-        # EMPRESA 1
-            switch($filial){
-                1{
-                    #TABELA DE FILIAIS
-                }
-            }            
-} 
-        5{
-            #EMPRESA 5
-        }
+ 
         default{
         $descricao = "CODIGO DE EMPRESA NAO CAD:EMP"
         $sigla = "NULL"
@@ -178,117 +168,7 @@ $descricao = ""
 $ouPath =  ""
 switch($emp){
  
-    1{
-    switch($departament){
-            1   { $descricao = "ABASTECIMENTO CD"}
-            2   { $descricao = "ABASTECIMENTO LOJA"; $ouPath = "COMPRAS" }
-            3   { $descricao = "ADMINISTRACAO DE PESSOAL"; $ouPath = "RH" }
-            4   { $descricao = "ADMINISTRATIVO CANAIS DIGITAIS"; $ouPath = "eCommerce" }
-            5   { $descricao = "ADMINISTRATIVO FILIAL";if($cargo -like "*CAIXA*"){$ouPath = "Caixa"}else{$ouPath = "Administrativo"}}
-            6   { $descricao = "ATENDIMENTO"; $ouPath = "Caixa" }
-            7   { $descricao = "COBRANCA"; $ouPath = "Cobranca" }
-            8   { $descricao = "COMERCIAL"}
-            9   { $descricao = "CONSELHO"}
-            10  { $descricao = "CONTAS A PAGAR"; $ouPath = "Contas_A_Pagar" }
-            11  { $descricao = "CONTAS A RECEBER"; $ouPath = "Cobranca" }
-            12  { $descricao = "CONTROLADORIA"; $ouPath = "Controladoria" }
-            13  { $descricao = "CREDITO E CADASTRO"; $ouPath = "Credito" }
-            14  { $descricao = "CSD - SERVICOS ADMINISTRATIVOS"; $ouPath = "Administrativo" }
-            15  { $descricao = "DESENVOLVIMENTO DE PESSOAS"; $ouPath = "RH" }
-            16  { $descricao = "DESENVOLVIMENTO DE PRODUTOS"}
-            17  { $descricao = "DIRETORIA COMERCIAL"; $ouPath = "Diretoria" }
-            18  { $descricao = "DIRETORIA DE CONTROLADORIA"; $ouPath = "Diretoria" }
-            19  { $descricao = "DIRETORIA FINANCEIRA"; $ouPath = "Diretoria" }
-            20  { $descricao = "DIRETORIA DE SUPPLY CHAIN"; $ouPath = "Diretoria" }
-            21  { $descricao = "DIRETORIA DE TI E RH"; $ouPath = "Diretoria" }
-            22  { $descricao = "FINANCEIRO"; $ouPath = "Tesouraria" }
-            23  { $descricao = "FISCAL"; $ouPath = "Contabilidade" }
-            24  { $descricao = "IMPORTACAO"; $ouPath = "COMPRAS" }
-            25  { $descricao = "JURIDICO"; $ouPath = "Juridico" }
-            26  { $descricao = "LOGISTICA CD"; $ouPath = "Logistica" }
-            27  { $descricao = "LOGISTICA LOJA"; $ouPath = "Logistica" }
-            28  { $descricao = "REFORMA, OBRAS E EXPANSAO"; $ouPath = "Administrativo" }
-            29  { $descricao = "MARKETING"; $ouPath = "Marketing" }
-            30  { $descricao = "MARKETPLACE"; $ouPath = "eCommerce" }
-            31  { $descricao = "PLANEJAMENTO"; $ouPath = "Gerentes" }
-            32  { $descricao = "PLANEJAMENTO FINANCEIRO"; $ouPath = "Gerentes" }
-            33  { $descricao = "PLATAFORMA DE NEGOCIOS"}
-            34  { $descricao = "POS VENDAS"; $ouPath = "Garantia" }
-            35  { $descricao = "PRE VENDA"}
-            36  { $descricao = "PRESIDENCIA"}
-            37  { $descricao = "PROCESSOS E PROJETOS"}
-            38  { $descricao = "SAC ATENDIMENTO"; $ouPath = "SAC" }
-            39  { $descricao = "SAC BACKOFFICE"; $ouPath = "SAC" }
-            40  { $descricao = "SITE - ECOMMERCE"; $ouPath = "eCommerce" }
-            41  { $descricao = "SSMA - SEGURANCA, SAUDE, MEIO AMBIENTE";
-                if($filial -eq 01){$ouPath= "RH"} else{ $ouPath="Administracao"}           
-            }
-            42  { $descricao = "SUPPLY CHAIN"}
-            43  { $descricao = "TELEVENDAS"; $ouPath = "Vendas" }
-            44  { $descricao = "TI OPERACOES"; $ouPath = "TI" }
-            45  { $descricao = "TI PLANEJAMENTO E CONTROLE"; $ouPath = "TI" }
-            46  { $descricao = "TRANSPORTES"; $ouPath = "Logistica" }
-            47  { $descricao = "VENDAS"; $ouPath = "Vendas" }
-            48  { $descricao = "VENDAS CAMARAS FRIAS"; $ouPath = "Vendas" }
-            49  { $descricao = "VENDAS CLIMATIZACAO"; $ouPath = "Vendas" }
-            50  { $descricao = "VENDAS CORPORACOES"; $ouPath = "Vendas" }
-            51  { $descricao = "VENDAS ENERGIA RENOVAVEL"; $ouPath = "Vendas" }
-            52  { $descricao = "VENDAS EXPRESS"; $ouPath = "Vendas" }
-            53  { $descricao = "VENDAS REVENDAS"; $ouPath = "Vendas" }
-            54  { $descricao = "ENDOMARKETING"; $ouPath = "RH" }
-            55  { $descricao = "FAMILY OFFICE"; $ouPath = "Tesouraria" }
-            56  { $descricao = "PAO DOS POBRES"; $ouPath = "RH" }
-            57  { $descricao = "MESA DE NEGOCIACAO"}
-            59  { $descricao = "CADASTRO"; $ouPath = "Compras" }
-            60  { $descricao = "INTELIGENCIA DE NEGOCIO"; $ouPath = "Controladoria" }
-            61  { $descricao = "PLANEJAMENTO COMERCIAL"}
-            62  { $descricao = "COMPRAS"; $ouPath = "Compras" }
-            63  { $descricao = "INVENTARIO"; $ouPath = "Logistica" }
-            64  { $descricao = "ADMINISTRATIVO"; $ouPath = "Administrativo" }
-            65  { $descricao = "ATRACAO E SELECAO"; $ouPath = "RH" }
-            66  { $descricao = "CONSULTORIA DE RH"; $ouPath = "RH" }
-            67  { $descricao = "TECNICO COMERCIAL"; $ouPath = "Vendas" }
-            68  { $descricao = "DIRETORIA DE SOLUCOES E SERVICOS"}
-            69  { $descricao = "ENGENHARIA DE SOLUCOES E SERVICOS"}
-            70  { $descricao = "SERVICOS"}
-            71  { $descricao = "OPERACOES COMERCIAIS"}
-            72  { $descricao = "COMPLIANCE" }
-            73  { $descricao = "CONTABILIDADE"; $ouPath = "Contabilidade" }
-            74  { $descricao = "AUDITORIA INTERNA"; $ouPath = "Juridico" }
-            75  { $descricao = "CUSTOS E ESTOQUE"; $ouPath = "Administrativo" }
-            76  { $descricao = "TI ENGENHARIA E CIENCIA DE DADOS"; $ouPath = "TI" }
-            77  { $descricao = "PROJETOS"; $ouPath = "Administrativo" }
-            100 { $descricao = "AFASTADOS INSS"}
-            247 { $descricao = "Vendas Co-working"}
-            default { $descricao = "CODIGO NAO CADASTRADO:SCRIPT";$ouPath="New" }
-            }
-        }
-    5{
-            switch($departament){
-                1  { $descricao = "ADMINISTRATIVO";$ouPath = "ADMINISTRATIVO" }
-                2  { $descricao = "CONFORMACAO"; $ouPath = "PRODUCAO" }
-                3  { $descricao = "ESTAMPARIA"; $ouPath = "PRODUCAO" }
-                4  { $descricao = "INDUSTRIAL"; $ouPath = "ADMINISTRATIVO" }
-                5  { $descricao = "LOGISTICA"; $ouPath = "LOGISTICA" }
-                6  { $descricao = "MANUTENCAO"; $ouPath = "" }
-                7  { $descricao = "MONTAGEM"; $ouPath = "PRODUCAO" }
-                8  { $descricao = "QUALIDADE"; $ouPath = "PRODUCAO" }
-                9  { $descricao = "USINAGEM"; $ouPath = "PRODUCAO" }
-                10 { $descricao = "ELETRONICO"; $ouPath = "PRODUCAO" }
-                11 { $descricao = "SSMA - SEGURANCA, SAUDE, MEIO AMBIENTE"; $ouPath = "ADMINISTRATIVO" }
-                12 { $descricao = "PRODUCAO"; $ouPath = "PRODUCAO" }
-                13 { $descricao = "PROJETOS"; $ouPath = "PROJETOS" }
-                14 { $descricao = "DIRETORIA COMERCIAL"; $ouPath = "" }
-                15 { $descricao = "COMPRAS"; $ouPath = "LOGISTICA" }
-                16 { $descricao = "CAMARA FRIAS"; $ouPath = "LOGISTICA" }
-                17 { $descricao = "PRESIDENCIA"; $ouPath = "" }
-                18 { $descricao = "VENDAS"; $ouPath = "VENDAS" }
-                default { $descricao = "CÓDIGO NÃO CADASTRADO"; $ouPath = "New" }
 
-            }
-
-
-        }
     default{
     $descricao = "Código de Empresa não existente:DEP"
     $SIGLA = "NULL"
@@ -320,33 +200,31 @@ return [PSCustomObject]@{
 }
 [void] GetMembersOf ([String]$filialMemberOf,[String]$departament){
     $this.memberOf = @(
-        "Lista - Todos",
         "Senior",
         "SEC - Radius Users",
-        "OTRS-Clientes",
-        "Lista - Todos $filialMemberOf"
+        "OTRS-Clientes"
     )
     if($departament -like "*VENDAS*"){
-        $this.memberOf += ("ACL_304-Vendas","IMP_$filialMemberOf-Vendas", "Lista - Vendedores $filialMemberOf")
+        $this.memberOf += ("IMP_$filialMemberOf-Vendas")
         $this.ramal=$true 
     }
     elseif($departament -like "*LOGISTICA*"){
-        $this.memberOf += ("ACL_305-Logistica","IMP_$filialMemberOf-Logistica", "Lista - Logistica $filialMemberOf")
+        $this.memberOf += ("IMP_$filialMemberOf-Logistica")
     }
     elseif($departament -like "*SAC*"){
-        $this.memberOf += ("ACL_322-Telefonistas","IMP_$filialMemberOf-SAC", "Lista - SAC $filialMemberOf", "Lista - SAC", "Intelipost")
+        $this.memberOf += ("IMP_$filialMemberOf-SAC", "Intelipost")
     }
-    elseif($departament -like "*TI OPERACOES*"){
-        $this.memberOf += ("ACL_303-TI","IMP_$filialMemberOf-TI")
+    elseif($departament -like "*TI*"){
+        $this.memberOf += ("IMP_$filialMemberOf-TI")
     }
     if($departament -like "*MARKETING*"){
-        $this.memberOf += ("ACL_308-Marketing","IMP_POA-MARKETING-COLOR")
+        $this.memberOf += ("IMP_POA-MARKETING-COLOR")
     }
     if($departament -like "*RH*"){
-        $this.memberOf += ("ACL_306-RH","IMP_$filialMemberOf-RH", "Lista - RH $filialMemberOf")
+        $this.memberOf += ("IMP_$filialMemberOf-RH")
     }
     if($departament -like "*ADMINISTRATIVO*"){
-        $this.memberOf += ("ACL_307-Administrativo","IMP_$filialMemberOf-Administrativo")
+        $this.memberOf += ("IMP_$filialMemberOf-Administrativo")
     }
 }
 [void]AjusteLogin($nameRaw){
@@ -419,6 +297,26 @@ return [PSCustomObject]@{
                 }
             }
         }
+        Write-Host "Sorting"
+        for($i=0; $i -lt $nicknames.Length; $i++){
+            $antName = ""
+            #if($i -gt 0){
+            $antName = $nicknames[$i - 1]
+            #}
+            $actualName = $nicknames[$i]
+            Write-Host "nickname atual: $($nicknames[$i])"
+            if(
+                ($actualName -like "*$($nameParts[0])*" -and $antName -notlike "*$($nameParts[0])*" ) -and $antName -notlike "" -or 
+                (($actualName -like "*$($nameParts[-1])*" -and $antName -notlike "*$($nameParts[0])*") -and $antName -notlike "" -and
+                ($antName -notlike "*$($nameParts[-1])*"))
+            ){
+                Write-Host "Posicao $($i): $($actualName) -> $($antName)"
+                $nicknames[$i - 1] = $actualName
+                $nicknames[$i] = $antName
+                $i = 0
+            }
+            
+        }
         $nicknameCorreto = ""
         foreach($nickname in $nicknames){
 
@@ -434,7 +332,7 @@ return [PSCustomObject]@{
             }
         }
         return $nicknameCorreto
-        }
+    }
 [void]GetGestor($employeeIDGestor){
     if(!$employeeIDGestor){
     Write-Host "Sem gestor"
@@ -456,26 +354,40 @@ Class CriarUsuario{
         if($this.validarUserExists($UserObject.domain, $UserObject.CPF)){
             Write-Host "Usuario Vai ser modificado"
             $this.create = $this.SetUser($UserObject)
-            Write-Host $UserObject
-            CriarLog $UserObject "ajuste"
+            Write-Host $this.create
+            if($this.create){
+                Write-Host $UserObject
+                CriarLog $UserObject "ajuste"
 
-            EnviarEmail $UserObject "RHAJUSTE" "rh.admissoes@dufrio.com.br"
-            EnviarEmail $UserObject "RHAJUSTE" "eduardo.mendes@dufrio.com.br"
-            EnviarEmail $UserObject "gestorAJUSTE" "eduardo.mendes@dufrio.com.br"
+                EnviarEmail $UserObject "RHAJUSTE" "email"
+                EnviarEmail $UserObject "gestorAJUSTE" $UserObject.emailGestor
+                if($UserObject.ramal){CreateTicket $UserObject "RAMAL"}
+                CreateTicket $UserObject "365"
+                #CreateTicket $UserObject "kitAdm"
+                CreateTicket $UserObject "kitInfra"
+            }
+
 
         } else{
             Write-Host "Usuario Vai ser criado"
             $this.create = NewUsers $UserObject
-            if($UserObject.ramal){EnviarEmail $UserObject "RAMAL" "servicedesk@dufrio.com.br"}
-            EnviarEmail $UserObject "RHCRIACAO" "rh.admissoes@dufrio.com.br"
-            EnviarEmail $UserObject "RHCRIACAO" "eduardo.mendes@dufrio.com.br"
-            CriarLog $UserObject "criacao"
+
+            if($this.create){
+                
+                EnviarEmail $UserObject "RHCRIACAO" "email"
+                EnviarEmail $UserObject "gestorCRIACAO" $UserObject.emailGestor
+                CriarLog $UserObject "criacao"
+                if($UserObject.ramal){CreateTicket $UserObject "RAMAL"}
+                CreateTicket $UserObject "365"
+                #CreateTicket $UserObject "kitAdm"
+                CreateTicket $UserObject "kitInfra"
             }
+        }
             #Quando criado/Modificado o usuario, sera enviado email correspondente para rh e gestor e log
             #Parametros: ObjetoUsuario para os campos do email, String para if e mudança do corpo, e para quem
         if(!$this.create){
 
-            EnviarEmail $UserObject "manual" "eduardo.mendes@dufrio.com.br"
+            EnviarEmail $UserObject "manual" "email"
             CriarLog $UserObject "manual"
             #Cria o log e avisa no titulo se é alteração ou criação do 0
         
@@ -489,7 +401,7 @@ Class CriarUsuario{
 
     }
     [bool]validarUserExists([String]$domain, $cpf){
-        $UserExistente = Get-ADUser -Filter {extensionAttribute3 -eq $cpf} -ErrorAction SilentlyContinue
+        $UserExistente = Get-ADUser -Filter {extensionAttributeCPF -eq $cpf} -ErrorAction SilentlyContinue
         if($UserExistente.UserPrincipalName -like "*$domain*" ){
             Write-Host "Usuario com mesmo dominio e CPF"
             return $true
@@ -499,7 +411,7 @@ Class CriarUsuario{
         }
     }
     [bool]SetUser($UserObject){
-        $UserExistente = Get-ADUser -Filter {extensionattribute3 -eq $UserObject.CPF} -Properties SamAccountName
+        $UserExistente = Get-ADUser -Filter {extensionattributeCPF -eq $UserObject.CPF} -Properties SamAccountName, employeeid
 
         Write-Host "$($UserObject.EmployeeID);$($UserObject.office);$($UserObject.jobTitle);$($UserObject.department);$($UserObject.empresa)"
         
@@ -517,47 +429,42 @@ Class CriarUsuario{
         if(!$UserExistente.enabled){
             Enable-ADAccount -Identity $UserExistente.SamAccountName
             Set-ADAccountPassword -Identity $UserExistente.SamAccountName -NewPassword (ConvertTo-SecureString -AsPlainText $UserObject.password -Force)
-            EnviarEmail $UserObject "RAMAL" "servicedesk@dufrio.com.br"
         }
         return $true
     }
 }
 function EnviarEmail($UserObject, $assunto, $emailSend){
     [String]$to = $emailSend
-    [String]$smtpServer = "SMTPSRV"
-    [int]$smtpPort = "PORTA"
-    [String]$username = "LOGIN"
-    [String]$password = "SENHA"
-    #From é padrão
-    [String]$from = "LOGIN"
+    [String]$smtpServer = "smtp.sendgrid.net"
+    [int]$smtpPort = " "
+    [String]$username = ""
+    [String]$password = "SENDGRID API KEY"
+    [String]$from = "servicedesk@dufrio.com.br"
     if($assunto -like "*RHCRIACAO*"){
         [String]$subject = "Usuario Criado no AD - $($UserObject.nickname)"
         $body = "
             Usuario: $($UserObject.upn)
             EmployeeID: $($UserObject.employeeID)
             Nome: $($UserObject.nomeFormatado)
-            Gestor: $($UserObject.emailGestor)
+            Gestor: $(if($UserObject.emailGestor){$UserObject.emailGestor}else{"Sem gestor cadastrado"})
             Cargo: $($UserObject.jobTitle)
             Filial: $($UserObject.pager)
-            Essa informação é um teste de script, o e-mail oficializado é via servicedesk
         "
     }
     if($assunto -like "*RHAJUSTE*"){
-        $UserOld = Get-ADUser -Filter {extensionAttribute3 -eq $UserObject.CPF}
+        $UserOld = Get-ADUser -Filter {extensionAttributeCPF -eq $UserObject.CPF}
         [String]$subject = "Usuario Alterado no AD - $($UserObject.SamAccountName)"
         $body = "
             Usuario: $($UserOld.UserPrincipalName)
             EmployeeID: $($UserObject.employeeid)
             Nome: $($UserOld.Name)
-            Gestor: $(if($UserGestor){$UserGestor.UserPrincipalName}else{"Sem gestor cadastrado"})
-            Cargo: $($UserObject.Title)
+            Gestor: $(if($UserObject.emailGestor){$UserObject.emailGestor}else{"Sem gestor cadastrado"})
+            Cargo: $($UserObject.jobTitle)
             Filial: $($UserObject.pager)
-            Essa informação é um teste de script, o e-mail oficializado é via servicedesk
         "
     }
     elseif($assunto -like "*gestorAJUSTE*"){
-        $UserOld = Get-ADUser -Filter {extensionAttribute3 -eq $UserObject.CPF} 
-        if($UserObject.Manager){$UserGestor = Get-ADUser -Identity $UserObject.Manager -ErrorAction SilentlyContinue}
+        $UserOld = Get-ADUser -Filter {extensionAttributeCPF -eq $UserObject.CPF} 
 
         [String]$subject = "Usuario Modificado - $($UserOld.SamAccountName)"
         $body = "
@@ -566,10 +473,9 @@ function EnviarEmail($UserObject, $assunto, $emailSend){
             Usuario: $($UserOld.UserPrincipalName)
             Senha: $($UserObject.password)
             Nome: $($UserOld.Name)
-            Gestor: $(if($UserObject.gestorName){$UserObject.gestorName}else{"Sem gestor cadastrado"})
+            Gestor: $(if($UserObject.emailGestor){$UserObject.emailGestor}else{"Sem gestor cadastrado"})
             Cargo: $($UserObject.jobTitle)
             Filial $($UserObject.pager)
-            Essa informacao e um teste de script, o login oficial sera via servicedesk
         "
     
     }
@@ -579,11 +485,26 @@ function EnviarEmail($UserObject, $assunto, $emailSend){
             Usuario: $($UserObject.upn)
             Senha: $($UserObject.password)
             Nome: $($UserObject.nomeFormatado)
-            Gestor: $($UserObject.emailGestor)
+            Gestor: $(if($UserObject.emailGestor){$UserObject.emailGestor}else{"Sem gestor cadastrado"})
             Cargo: $($UserObject.jobTitle)
             Filial $($UserObject.pager)
-            Essa informacao e um teste de script, o login oficial sera via servicedesk
+            
         "
+    }
+    elseif($assunto -like "*365*"){
+        $UserOld = Get-ADUser -Filter {extensionAttributeCPF -eq $UserObject.CPF} 
+
+        [String]$subject = "Criar usuario 365 - $($UserOld.SamAccountName)"
+        $body = "
+            Nao conseguiu criar chamado pelo OTRS, enviado via Email:
+            Usuario: $($UserOld.UserPrincipalName)
+            Nome: $($UserOld.Name)
+            Gestor: $(if($UserObject.emailGestor){$UserObject.emailGestor}else{"Sem gestor cadastrado"})
+            Cargo: $($UserObject.jobTitle)
+            Data Admissao: $($UserObject.datAdm)
+            Filial $($UserObject.pager)
+        "
+    
     }
     elseif($assunto -like "*RAMAL*"){
         [String]$subject = "Criar RAMAL/Conferir se não Existe - $($UserObject.nomeFormatado)"
@@ -601,9 +522,25 @@ function EnviarEmail($UserObject, $assunto, $emailSend){
         Usuario: $($UserObject.nomeFormatado)
         employeeID: $($UserObject.employeeID)
     " 
+    }elseif($assunto -like "*kitAdm*"){
+        [String]$subject = "Reposicao de equipamentos - $($UserObject.pager)"
+        $body = "
+            Usuario: $($UserObject.upn)
+            Nome: $($UserObject.nomeFormatado)
+            Gestor: $($UserObject.emailGestor)
+            Cargo: $($UserObject.jobTitle)
+            Filial $($UserObject.pager)
+        "
+    }elseif($assunto -like "*kitInfra*"){
+        [String]$subject = "Entrega de equipamentos ao colaborador novo - $($UserObject.nomeFormatado)"
+        $body = "
+            Usuario: $($UserObject.upn)
+            Nome: $($UserObject.nomeFormatado)
+            Gestor: $($UserObject.emailGestor)
+            Cargo: $($UserObject.jobTitle)
+            Filial $($UserObject.pager)
+        "
     }
-
-
     # Crie as credenciais
     $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
     $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
@@ -628,8 +565,8 @@ Usuário criado com sucesso
 ----------------------------------------
 "@
     }elseif($assunto -like "*ajuste*"){
-    $UserOld = Get-ADUser -Filter {extensionAttribute3 -eq $UserObject.CPF}
-       $logFilePath = "C:\Util\Mendes - Scripts\Criacao de Usuario\Logs\UsuariosCriadosCSenhaLogs.txt"
+    $UserOld = Get-ADUser -Filter {extensionAttributeCPF -eq $UserObject.CPF}
+       $logFilePath = "Logs\UsuariosCriadosCSenhaLogs.txt"
        $logContent = @"
 ----------------------------------------
 Usuário Ajustado com sucesso
@@ -643,8 +580,9 @@ Usuário Ajustado com sucesso
     OU: $($UserObject.pathOU)
 ----------------------------------------
 "@
-    }elseif($assunto -like "*manual*"){
-       $logFilePath = "C:\Util\Mendes - Scripts\Criacao de Usuario\Logs\UsuariosParaCriarManual.txt"
+    }
+    elseif($assunto -like "*manual*"){
+       $logFilePath = "Logs\UsuariosParaCriarManual.txt"
        $logContent = @"
 ----------------------------------------
 Usuário deve ser criado!
@@ -685,7 +623,7 @@ function NewUsers($UserObject){
                 -Department $UserObject.department`
                 -Company $UserObject.empresa
 
-    Set-ADUser -Identity $UserObject.nickname -Add @{Pager="$($UserObject.pager)";extensionAttribute1=("$($UserObject.datAdm)");extensionAttribute2="$($UserObject.datNas)";extensionAttribute3=("$($UserObject.CPF)")}
+    Set-ADUser -Identity $UserObject.nickname -Add @{Pager="$($UserObject.pager)";extensionAttribute1=("$($UserObject.datAdm)");extensionAttribute2="$($UserObject.datNas)";extensionAttributeCPF=("$($UserObject.CPF)")}
 
 
     foreach ($group in $UserObject.memberOf) {
@@ -701,8 +639,13 @@ function NewUsers($UserObject){
     if($UserObject.gestorOu){Set-ADUser -Identity $UserObject.nickname -Manager $UserObject.gestorOu}
 
     Enable-ADAccount -Identity $UserObject.nickname
-
-    return $true
+    $createdUser = Get-ADUser -Identity $UserObject.nickname
+    if($createdUser){
+        return $true
+    } else{
+        return $false
+    }
+    
 
 }
 function Output($user){
@@ -727,26 +670,181 @@ function Output($user){
 "@
 }
 function Log-Error([String]$message) {
-    $logFilePath = "C:\Util\Mendes - Scripts\Criacao de Usuario\Logs\Errors.log"
+    $logFilePath = "\Logs\Errors.log"
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $logMessage = "$timestamp - ERROR: $message"
     Add-Content -Path $logFilePath -Value $logMessage
     }
+function CreateTicket([PSCustomObject]$UserObject, [String]$subject){
+#SESSION ID SERVICEDESK
+	$header = @{
+"Content-Type" = "application/json"
+}
 
-if($PSDefaultParameterValues.Values -ne "srvdf145.dufrio.local"){$PSDefaultParameterValues.Add("*-AD*:Server","srvdf145.dufrio.local")}
+$url = ""
+
+$body = @{
+    UserLogin = ""
+    Password  = ""
+}
+
+$jsonBody = $body | ConvertTo-Json -Compress
+
+$response = Invoke-RestMethod -Uri $url -Method Post -Headers $header -Body $jsonBody
+
+#createTicket
+
+
+
+    $urlCreateTicket = ""
+    $UserOld = Get-ADUser -Filter {extensionAttributeCPF -eq $UserObject.CPF}
+    $bodyTicketMessage = @"
+        Usuario: $($UserOld.UserPrincipalName)
+        Nome: $($UserOld.Name)
+        Gestor: $(if($UserObject.emailGestor){$UserObject.emailGestor}else{"Sem gestor cadastrado"})
+        Cargo: $($UserObject.jobTitle)
+        Data Admissao: $($UserObject.datAdm)
+        Filial $($UserObject.pager)
+"@ -replace "`r`n", "\n"
+        
+        $costumerUser = ""
+        switch($subject){
+        "365"{
+            $queue = "Sistemas::N1"
+            $title = "Criar/Alterar User 365"
+            $costumerUser = "$($UserObject.emailGestor)"
+            $serviceID = "2269"
+            $slaID = "5" #ok
+        }
+        "kitAdm"{
+                $queue = "Administrativo"
+                $title = "Reposicao de Equipamentos - $($UserObject.pager)"
+                $serviceID = "3480"
+                $slaID = "11" #ok            
+        }
+        "kitInfra"{
+            #if($UserObject.pager -match "FILIAIS"){
+                $queue = "Infraestrutura::N1"
+                $title = "Verificacao de usuario e Entrega de Equipamento $($UserObject.pager)"
+                $serviceID = "2877"
+                $slaID = "3" #ok
+                $bodyTicketMessage = @"
+                    Precisa validar a licenca do usuario e seus acessos:
+
+                    Usuario: $($UserOld.UserPrincipalName)
+                    Nome: $($UserOld.Name)
+                    Gestor: $(if($UserObject.emailGestor){$UserObject.emailGestor}else{"Sem gestor cadastrado"})
+                    Cargo: $($UserObject.jobTitle)
+                    Data Admissao: $($UserObject.datAdm)
+                    Filial $($UserObject.pager)
+"@ -replace "`r`n", "\n"
+            #}else{
+                #$queue = "Administrativo"
+               # $title = "Entrega de equipamento ADM $($UserObject.pager)"
+               # $queue = "Administrativo::Controle de Ativos"
+               # $serviceID = "2280"
+               # $slaID = "17" #ok 
+            #}
+            
+        }
+        "RAMAL"{
+            $queue = "Infraestrutura::N1"
+            $title = "Criacao de Ramal"
+            $serviceID = "1272"
+            $slaID = "5" #ok
+        }
+        default{
+            $queue = "Postmaster"
+            $title = "Criacao de chamado - Usuario novo"
+            $serviceID = "0"
+            $slaID = "0" #ok
+        }
+    }
+
+
+$urlCreateTicket = ""
+
+
+
+$jsonBodyTicket = @"
+{
+  "SessionID": "$($response.SessionID)",
+  "Ticket": {
+    "Title": "$($title)",
+    "Queue": "$($queue)",
+    "lock": "unlock",
+    "PriorityID": 4,
+    "TypeID": 4,
+    "ServiceID":$($serviceID),
+    "SLAID": $($slaID),
+    "State": "new",
+    "CustomerUser": "$($costumerUser)",
+    "owner": "otrs.devops"
+  },
+  "Article": {
+    "Subject": "Script",
+    "Body": "$($bodyTicketMessage)",
+    "ContentType": "text/plain; charset=UTF-8",
+    "communicationChannel": "Script",
+    "SenderTypeID": 1
+  }
+}
+"@
+    
+
+    try {
+        # Tenta criar o ticket
+        $responseCreatedTicket = Invoke-RestMethod -Uri $urlCreateTicket -Method Post -Headers $header -Body $jsonBodyTicket
+
+        # Exibe a resposta (normalmente em caso de sucesso)
+        
+        
+        $logFilePath = "C:\Util\Mendes - Scripts\Criacao de Usuario\Logs\UsuariosCriadosCSenhaLogs.txt"
+        
+
+        # Caso a resposta tenha um campo 'Error'
+        if ($responseCreatedTicket.Error) {
+            
+             $textLog = "Erro retornado pela API: $($responseCreatedTicket.Error) $($subject)"
+             Write-Host $textLog
+             Log-Error $textLog
+             EnviarEmail $UserObject $subject ""
+        } else{
+            $textLog = "Ticket criado com sucesso: $($responseCreatedTicket.TicketNumber) $($subject)"
+            Write-Host $textLog
+        }
+        Add-Content -Path $logFilePath -Value $textLog
+    }
+    catch {
+        # Tratamento de erro da requisição
+        Write-Host "Falha ao criar o ticket."
+        Write-Host "Mensagem de erro: $($_.Exception.Message)"
+        EnviarEmail $UserObject $subject ""
+
+        # Opcional: Exibir detalhes do erro completo
+        if ($_.ErrorDetails) {
+            Write-Host "Detalhes adicionais: $($_.ErrorDetails.Message)"
+        }
+    }
+
+}
+
+if($PSDefaultParameterValues.Values -ne ""){$PSDefaultParameterValues.Add("Get-ADUser:Server", "")}
 $outputUsers =""
-[String]$PathXMLUsersAdmitidos = "C:\Util\Mendes - Scripts\Criacao de Usuario\Logs\Usuários admitidos.xml"
+[String]$PathXMLUsersAdmitidos = "Logs\Usuários admitidos.xml"
 $Users = Import-Clixml -Path $PathXMLUsersAdmitidos
 $criarManualXML = @()
 
 $Users | ForEach-Object{
-$user = [Ajustes]::New($_)
-if($user.nickname){
-    $outputUsers += Output $user
-    $obj = [CriarUsuario]::New($user)
-} else {
-    $criarManualXML += $user
+    $user = [Ajustes]::New($_)
+    if($user.nickname){
+        $outputUsers += Output $user
+        $obj = [CriarUsuario]::New($user)
+    } 
+    else {
+        $criarManualXML += $user
+    }
 }
-}
-$criarManualXML | Export-Clixml -Path "C:\Util\Mendes - Scripts\Criacao de Usuario\Logs\CriarUsuariosManual.xml"
+
+$criarManualXML | Export-Clixml -Path "\Logs\CriarUsuariosManual.xml"
 return $outputUsers
